@@ -1,9 +1,9 @@
 from flask import url_for
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
-from app.db import Base
+from app import db
 
-class ItemModel(Base):
+class ItemModel(db.Model):
     __tablename__ = 'items'
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String(40))
@@ -11,8 +11,6 @@ class ItemModel(Base):
     price = sa.Column(sa.Integer)
     category_id = sa.Column(sa.Integer, sa.ForeignKey('categories.id'))
     user_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
-    user = relationship('UserModel')
-    category = relationship('CategoryModel')
 
     def __init__(self, name, description, price, category_id, user_id):
         self.name = name
@@ -43,5 +41,5 @@ class ItemModel(Base):
         return self
 
     def save_to_db(self):
-        db_session.add(self)
-        db_session.commit()
+        db.session.add(self)
+        db.session.commit()

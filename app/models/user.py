@@ -1,24 +1,23 @@
 from flask import url_for
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
-from app.db import Base
+from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class UserModel(Base):
+class UserModel(db.Model):
     __tablename__ = 'users'
     id = sa.Column(sa.Integer, primary_key=True)
     full_name = sa.Column(sa.String(60))
     username = sa.Column(sa.String(40), unique=True)
-    password = sa.Column(sa.String(40))
+    password = sa.Column(sa.String(200))
     email = sa.Column(sa.String(100), unique=True)
+    items = relationship('ItemModel', backref='item', lazy='dynamic', cascade='all, delete-orphan')
 
     def __init__(self, full_name, username, password, email):
         self.full_name = full_name
         self.username = username
-        self.password = password
+        self.password = generate_password_hash(password)
         self.email = email
-    
-    def get_url(self):
-        return url_for('api.get_users', id=self.id, _external=True)
 
     def export_data(self):
         return {
@@ -30,16 +29,12 @@ class UserModel(Base):
         }
 
     def import_data(self, data):
-        try:
-            self.full_name = data['full_name']
-            self.username = data['username']
-            self.password = data['password']
-            self.email = data['email']
-        except KeyError as e:
-            print(e)
-            #raise ValidationError('Invalid customer: missing ' + e.args[0])
+        self.full_name = data['full_name']
+        self.username = data['username']
+        self.password = self.password = generate_password_hash(data['password'])
+        self.email = data['email']
         return self
 
     def save_to_db(self):
-        db_session.add(self)
-        db_session.commit()
+        db.session.add(self)
+        db.session.commit()
