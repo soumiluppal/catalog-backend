@@ -1,0 +1,6 @@
+flask-sqlalchemy==2.4.0
+flask-jwt==0.3.2
+mysql-connector==2.2.9
+marshmallow==3.0.0rc7
+pytest==5.0.0
+pytest-cov==2.7.1

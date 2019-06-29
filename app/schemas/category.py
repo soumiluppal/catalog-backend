@@ -13,7 +13,6 @@ class CategorySchema(Schema):
         elif len(name) < 3:
             raise ValidationError('Category name must be atleast 3 characters long.')
         elif CategoryModel.query.filter_by(name=name).first():
-            print("OH GOD CHECK")
             raise ValidationError('Category already exists.')
 
     @validates('description')

@@ -33,7 +33,8 @@ Got It Onboarding project - Catalog backend using Flask
 ### Setting up
 
 Create virtual environment
-``
+`virtualenv venv --python=python3`  
+`source venv/bin/activate`  
 
 Install requirements  
 `pip install -r requirements.txt`  
