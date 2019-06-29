@@ -35,30 +35,30 @@ Got It Onboarding project - Catalog backend using Flask
 Create virtual environment
 ``
 
-Install requirements
-`pip install -r requirements.txt`
+Install requirements  
+`pip install -r requirements.txt`  
 
-Create databases (Make sure root user is not password protected)
-`mysql -u root`
-For development:
-`mysql> CREATE DATABASE catalog;`
-For testing:
-`mysql> CREATE DATABASE test_catalog;`
+Create databases (Make sure root user is not password protected)  
+`mysql -u root`  
+For development:  
+`mysql> CREATE DATABASE catalog;`  
+For testing:  
+`mysql> CREATE DATABASE test_catalog;`  
 
-Set Flask entry point
-`export FLASK_APP=run.py`
+Set Flask entry point  
+`export FLASK_APP=run.py`  
 
 
 ### Running the app in development
 
-Go to the root folder of the project and type:
-`flask run`
+Go to the root folder of the project and type:  
+`flask run`  
 
 
 ### Running test suite
 
-Go to the root folder of the project and type:
-`python -m pytest -v tests/`
+Go to the root folder of the project and type:  
+`python -m pytest -v tests/`  
 
-To see with coverage:
-`python -m pytest -v --cov=app tests/`
+To see with coverage:  
+`python -m pytest -v --cov=app tests/`  
